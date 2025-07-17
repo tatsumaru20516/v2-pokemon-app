@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css'
 import { fetchPokemonData } from './utils/pokemon';
+import Card from './components/Card/Card';
 
 function App() {
 
@@ -28,28 +29,25 @@ function App() {
   // 引数：results配列[{name,url},{〃}...]　戻り値：全ポケモン配列[1匹の詳細, 2匹目の詳細, ...]
   const loadPokemon = async (allPokemonData) => {
     const pokemonDataArray = await Promise.all(
-      allPokemonData.map( pokemon => {
+      allPokemonData.map(pokemon => {
         let pokemonJson = fetchPokemonData(pokemon.url);
         return pokemonJson;
       })
     );
     setPokemonData(pokemonDataArray); // ポケモンデータをステートに保存
   };
-    // ここでポケモンデータを処理するロジックを追加できます
-    // console.log(allPokemonData); // デバッグ用
+  // ここでポケモンデータを処理するロジックを追加できます
+  // console.log(allPokemonData); // デバッグ用
 
   return (
     <>
-      <div>
-        {pokemonData.map((pokemon, index) => (
-          <div key={index} className="pokemon-card">
-            <h2>{pokemon.name}</h2>
-            <img src={pokemon.sprites.front_default} alt= {`${pokemon.name}の画像`} />
-            <p>Height: {pokemon.height}</p>
-            <p>Weight: {pokemon.weight}</p>
-            <p>Types: {pokemon.types.map(type => type.type.name).join(', ')}</p>
-          </div>
-        ))}
+      <div className='App'>
+        {/* ポケモンカードの表示 */}
+        <div className="pokemonCardContainer">
+          {pokemonData.map((pokemon, index) => {
+            return <Card key={index} pokemon={pokemon} />
+          })}
+        </div>
       </div>
     </>
   )

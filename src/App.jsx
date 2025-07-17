@@ -4,7 +4,7 @@ import { fetchPokemonData } from './utils/pokemon';
 
 function App() {
 
-  // ポケモンデータを格納するステート
+  // 詳細なポケモンデータを格納するステート
   const [pokemonData, setPokemonData] = useState([]);
 
   // 初期URLを設定
@@ -40,7 +40,17 @@ function App() {
 
   return (
     <>
-      <h1>Hello, World!</h1>
+      <div>
+        {pokemonData.map((pokemon, index) => (
+          <div key={index} className="pokemon-card">
+            <h2>{pokemon.name}</h2>
+            <img src={pokemon.sprites.front_default} alt= {`${pokemon.name}の画像`} />
+            <p>Height: {pokemon.height}</p>
+            <p>Weight: {pokemon.weight}</p>
+            <p>Types: {pokemon.types.map(type => type.type.name).join(', ')}</p>
+          </div>
+        ))}
+      </div>
     </>
   )
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css'
 import { fetchPokemonData } from './utils/pokemon';
 import Card from './components/Card/Card';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
 
@@ -42,12 +43,18 @@ function App() {
   return (
     <>
       <div className='App'>
+
+        {/* ナビバーの表示 */}
+        <Navbar />
+
         {/* ポケモンカードの表示 */}
         <div className="pokemonCardContainer">
           {pokemonData.map((pokemon, index) => {
             return <Card key={index} pokemon={pokemon} />
           })}
         </div>
+
+        
       </div>
     </>
   )
